@@ -1,2 +1,8 @@
-package com.SPL_middleware.assignment.controller;public class ShippingRateController {
+package com.SPL_middleware.assignment.controller;
+
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class ShippingRateController {
+
 }
