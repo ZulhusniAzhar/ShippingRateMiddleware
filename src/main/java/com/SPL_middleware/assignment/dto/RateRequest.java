@@ -1,6 +1,10 @@
 package com.SPL_middleware.assignment.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Positive;
 import lombok.Data;
 import lombok.Getter;
 
@@ -9,30 +13,39 @@ import java.util.List;
 @Data
 @Getter
 public class RateRequest {
+        @NotBlank
         @JsonProperty("origin_country")
         private String originCountry;
 
+        @NotBlank
         @JsonProperty("origin_state")
         private String originState;
 
+        @NotBlank
         @JsonProperty("origin_postcode")
         private String originPostcode;
 
+        @NotBlank
         @JsonProperty("destination_country")
         private String destinationCountry;
 
+        @NotBlank
         @JsonProperty("destination_state")
         private String destinationState;
 
+        @NotBlank
         @JsonProperty("destination_postcode")
         private String destinationPostcode;
 
+        @Positive
         @JsonProperty("length")
         private double length;
 
+        @Positive
         @JsonProperty("width")
         private double width;
 
+        @Positive
         @JsonProperty("height")
         private double height;
 
@@ -57,6 +70,7 @@ public class RateRequest {
         @JsonProperty("shipping_type")
         private String shippingType ;
 
+        @NotEmpty
         @JsonProperty("couriers")
         private List<String> couriers;
 
@@ -142,5 +156,57 @@ public class RateRequest {
 
         public List<String> getCouriers() {
                 return couriers;
+        }
+
+        public void setOriginCountry(String originCountry) {
+                this.originCountry = originCountry;
+        }
+
+        public void setOriginState(String originState) {
+                this.originState = originState;
+        }
+
+        public void setOriginPostcode(String originPostcode) {
+                this.originPostcode = originPostcode;
+        }
+
+        public void setDestinationCountry(String destinationCountry) {
+                this.destinationCountry = destinationCountry;
+        }
+
+        public void setDestinationState(String destinationState) {
+                this.destinationState = destinationState;
+        }
+
+        public void setDestinationPostcode(String destinationPostcode) {
+                this.destinationPostcode = destinationPostcode;
+        }
+
+        public void setLength(double length) {
+                this.length = length;
+        }
+
+        public void setWidth(double width) {
+                this.width = width;
+        }
+
+        public void setHeight(double height) {
+                this.height = height;
+        }
+
+        public void setSelectedType(int selectedType) {
+                this.selectedType = selectedType;
+        }
+
+        public void setParcelWeight(double parcelWeight) {
+                this.parcelWeight = parcelWeight;
+        }
+
+        public void setDocumentWeight(double documentWeight) {
+                this.documentWeight = documentWeight;
+        }
+
+        public void setCouriers(List<String> couriers) {
+                this.couriers = couriers;
         }
 }
