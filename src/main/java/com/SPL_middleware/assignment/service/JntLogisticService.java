@@ -9,6 +9,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import java.io.BufferedReader;
@@ -21,6 +23,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class JntLogisticService implements LogisticService {
+    private static final Logger logger = LoggerFactory.getLogger(JntLogisticService.class);
 
     @Value("${jnt.cookies}") // Values taken from the GET API curl in the JnT Website
     private String cookies;
@@ -35,14 +38,14 @@ public class JntLogisticService implements LogisticService {
     public RateResponse getRate(Object request) {
         try {
             JntRateRequest jntRateRequest = (JntRateRequest) request;
-            System.out.println("This is request jnt: " + jntRateRequest);
+            logger.info("[Request][J&T][GET]: " + jntRateRequest);
 
             //Flow
             //1- Check whether same key exist in redis cache
             String cacheKey = generateCacheKey(jntRateRequest);
             Object cachedRate = cacheService.getFromCache(cacheKey);
             if (cachedRate != null) {
-                System.out.println("Retrieved from cache: " + cachedRate);
+                logger.info("Retrieved from J&T cache: " + cachedRate);
                 return new RateResponse("J&T", (Double) cachedRate);
             }
 
@@ -52,26 +55,25 @@ public class JntLogisticService implements LogisticService {
 
             String token = extractToken(tokenResponse);
             String cookie = extractCookies(tokenResponse);
-            System.out.println("Token: " + token);
-            System.out.println("Cookie: " + cookie);
+            logger.info("Token: " + token);
+            logger.info("Cookie: " + cookie);
 
             String requestBody = mapToUrlEncoded(jntRateRequest, token);
-            System.out.println("This is request for POST JNT:"+requestBody);
+            logger.info("[Request][J&T][POST]:"+requestBody);
 
             //2nd api
             Response htmlResponse = jnTClient.getRate(cookie,requestBody);
 
-            System.out.println("Doing extraction");
+            logger.info("Doing extraction");
             String finalRate = extractRateFromHtml(htmlResponse);
-            System.out.println("Final Rate JNT:"+finalRate);
             double finalRateConverted= Double.parseDouble(finalRate);
-            System.out.println("JnT Price Rate is: " + finalRate);
+            logger.info("JnT Price Rate is: " + finalRate);
 
             cacheService.saveToCache(cacheKey, finalRateConverted);
 
             return new RateResponse("J&T", finalRateConverted);
         } catch (Exception e) {
-            System.out.println("Exception occurred: " + e.getMessage());
+            logger.error("Exception occurred: " + e.getMessage());
             return new RateResponse("J&T", 0.0);
         }
     }
@@ -114,6 +116,7 @@ public class JntLogisticService implements LogisticService {
             Element tokenElement = doc.selectFirst("input[name=_token]");
             return tokenElement != null ? tokenElement.attr("value") : "";
         } catch (IOException e) {
+            logger.error("IO Exception While Extracting HTML element for Token");
             throw new RuntimeException("Failed to extract token", e);
         }
     }
@@ -137,7 +140,7 @@ public class JntLogisticService implements LogisticService {
         String htmlBody;
 
         if (response.body() == null) {
-            System.out.println("Response body is null.");
+            logger.info("Response body is null.");
             return "No HTML Response received";
         }
         System.out.println("First Checkpoint");
@@ -185,10 +188,10 @@ public class JntLogisticService implements LogisticService {
                 }
             }
 
-            System.out.println("Could not find shipping rate in either table.");
+            logger.info("Could not find shipping rate in either table.");
             return "No Rate";
         } catch (Exception e) {
-            System.out.println("Exception during extraction: " + e.getMessage());
+            logger.error("Exception While Extracting HTML element for J&T Rate:"+e.getMessage());
             return "No Rate";
         }
     }

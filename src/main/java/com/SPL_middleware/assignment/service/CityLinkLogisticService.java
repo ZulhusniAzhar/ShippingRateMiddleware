@@ -6,10 +6,13 @@ import com.SPL_middleware.assignment.dto.RateResponse;
 import com.SPL_middleware.assignment.feign.CityLinkClient;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CityLinkLogisticService implements LogisticService{
+    private static final Logger logger = LoggerFactory.getLogger(CityLinkLogisticService.class);
     private final CityLinkClient cityLinkClient;
     private final CacheService cacheService;
 
@@ -20,20 +23,20 @@ public class CityLinkLogisticService implements LogisticService{
 
     public RateResponse getRate(Object request) {
         CityLinkRateRequest cityLinkRateRequest=(CityLinkRateRequest) request;
-        System.out.println("This is request citylink"+cityLinkRateRequest);
+        logger.info("[Request][CityLink]:"+cityLinkRateRequest);
 
         //Flow
         //1- Check whether same key exist in redis cache
         String cacheKey = generateCacheKey(cityLinkRateRequest);
         Object cachedRate = cacheService.getFromCache(cacheKey);
         if (cachedRate != null) {
-            System.out.println("Retrieved from CityLink cache: " + cachedRate);
+            logger.info("Retrieved from CityLink cache: " + cachedRate);
             return new RateResponse("CityLink", (Double) cachedRate);
         }
 
         //2- Else, call API
         CityLinkRateResponse response = cityLinkClient.getRate(cityLinkRateRequest);
-        System.out.println("This is response citylink"+response);
+        logger.info("[Response][CityLink]:"+response);
 
         cacheService.saveToCache(cacheKey, response.getReq().getData().getRate());
 

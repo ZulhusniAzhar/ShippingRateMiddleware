@@ -3,6 +3,8 @@ package com.SPL_middleware.assignment.service;
 import com.SPL_middleware.assignment.dto.mapper.CityLinkRateRequestMapper;
 import com.SPL_middleware.assignment.dto.mapper.JntRateRequestMapper;
 import com.SPL_middleware.assignment.dto.mapper.RateRequestMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,7 +13,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class LogisticServiceFactory {
-
+    private static final Logger logger = LoggerFactory.getLogger(LogisticServiceFactory.class);
     private final JntLogisticService jntLogisticService;
     private final CityLinkLogisticService cityLinkLogisticService;
 
