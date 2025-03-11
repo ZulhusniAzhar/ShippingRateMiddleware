@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.SPL-middleware</groupId>
 	<artifactId>assignment</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>assignment</name>
 	<description>Assignment Project for TM Interview</description>
 	<url/>
@@ -97,7 +97,11 @@
 			<groupId>redis.clients</groupId>
 			<artifactId>jedis</artifactId>
 		</dependency>
-
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>2.6.0</version>
+		</dependency>
 
 
 
