@@ -37,6 +37,9 @@ public class JntLogisticService implements LogisticService {
 
     public RateResponse getRate(Object request) {
         try {
+            if (request == null) {
+                throw new IllegalArgumentException("Request cannot be null");
+            }
             JntRateRequest jntRateRequest = (JntRateRequest) request;
             logger.info("[Request][J&T][GET]: " + jntRateRequest);
 

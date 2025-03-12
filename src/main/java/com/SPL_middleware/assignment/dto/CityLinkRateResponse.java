@@ -10,11 +10,19 @@ public class CityLinkRateResponse {
         return req;
     }
 
+    public void setReq(Req req) {
+        this.req = req;
+    }
+
     public static class Req {
         private CityLinkRateData data;
 
         public CityLinkRateData getData() {
             return data;
+        }
+
+        public void setData(CityLinkRateData data) {
+            this.data = data;
         }
 
         @Override
@@ -30,6 +38,10 @@ public class CityLinkRateResponse {
 
         public double getRate() {
             return rate;
+        }
+
+        public void setRate(double rate) {
+            this.rate = rate;
         }
 
         @Override
