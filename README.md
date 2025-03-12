@@ -12,12 +12,12 @@ Middleware for Assessment TM (Logistic Services)
 - Docker installed
 - Postman installed
 - Cloned the code to Intellij
-- Build Jar (mvn clean install)
+- Build Jar (mvn clean install // mvn clean install -DskipTests)
 
 ## 2️⃣ Running the Middleware
 - Run this command: 'docker-compose up --build' in the project's path. (To run both redis and app containers)
 
-## 3️⃣ Testing API with Postman
+## Testing API with Postman
 - Paste the curl below in the bar
 ```
 curl --location 'http://localhost:8080/abc/logistics/rate' \
@@ -44,10 +44,21 @@ curl --location 'http://localhost:8080/abc/logistics/rate' \
 ```
 - Can change the value of couriers, to have limited couriers eg: "couriers": ["citylink"]
 
-## Security Check
+## Swagger
+- http://localhost:8080/swagger-ui/index.html
+
+## API Security
 - Add another key:value in the header request (Origin: https://notallowing.com)
 - Will get Cors error since Im allowing only https://tm-abc.com
 - ![image](https://github.com/user-attachments/assets/5e2fe79c-cc32-409e-a6d7-3e217862ba2f)
+
+- Check Application.properties for separating key and values to be hide
+
+  ## Logging
+  - Logging the Request and Response as well as the Header during Feign Call to use for debugging
+ 
+  ## Unit Testing
+  - Unit testing for main services which are CityLinkLogisticServiceTest and JntLogisticServiceTest
 
   
 
