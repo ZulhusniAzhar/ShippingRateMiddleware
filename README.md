@@ -43,9 +43,13 @@ curl --location 'http://localhost:8080/abc/logistics/rate' \
 }'
 ```
 - Can change the value of couriers, to have limited couriers eg: "couriers": ["citylink"]
+- Eg: ![image](https://github.com/user-attachments/assets/b9e2a92a-d96d-4979-a37b-c671e646daad)
+
 
 ## Swagger
 - http://localhost:8080/swagger-ui/index.html
+- ![image](https://github.com/user-attachments/assets/48612ab4-eaf1-4466-bfba-19a36cc0d594)
+
 
 ## API Security
 - Add another key:value in the header request (Origin: https://notallowing.com)
@@ -54,11 +58,15 @@ curl --location 'http://localhost:8080/abc/logistics/rate' \
 
 - Check Application.properties for separating key and values to be hide
 
-  ## Logging
-  - Logging the Request and Response as well as the Header during Feign Call to use for debugging
+## Logging
+- Logging the Request and Response as well as the Header during Feign Call to use for debugging
+- Eg: ![image](https://github.com/user-attachments/assets/a29ac0bc-97b3-4744-9247-ed39b5fc9a4b)
+
  
-  ## Unit Testing
-  - Unit testing for main services which are CityLinkLogisticServiceTest and JntLogisticServiceTest
+## Unit Testing
+- Unit testing for main services which are CityLinkLogisticServiceTest and JntLogisticServiceTest
+- ![image](https://github.com/user-attachments/assets/5c75c871-5184-42d1-be11-06ea90247b6c)
+
 
   
 
