@@ -29,6 +29,7 @@ public class RateCalcService {
                 RateRequestMapper rateRequestMapper = logisticServiceFactory.getRateRequestMapper(courier);
                 Object mappedRequest = rateRequestMapper.map(request);
                 RateResponse rateResponse = logisticService.getRate(mappedRequest);
+
                 responses.add(rateResponse);
             }
         }
