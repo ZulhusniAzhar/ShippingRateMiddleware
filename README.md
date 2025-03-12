@@ -12,6 +12,7 @@ Docker Version- 27.5.1
 - Docker installed
 - Postman installed
 - Cloned the code to Intellij
+- Build Jar (mvn clean install)
 
 ## 2️⃣ Running the Middleware
 - Run this command: 'docker-compose up --build' in the project's path. (To run both redis and app containers)
@@ -42,4 +43,9 @@ curl --location 'http://localhost:8080/abc/logistics/rate' \
 }'
 ```
 - Can change the value of couriers, to have limited couriers eg: "couriers": ["citylink"]
+
+## Security Check
+- Add another key:value in the header request (Origin: https://notallowing.com)
+- Will get Cors error since Im allowing only https://tm-abc.com
+  
 
