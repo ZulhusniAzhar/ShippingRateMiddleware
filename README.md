@@ -43,7 +43,30 @@ curl --location 'http://localhost:8080/abc/logistics/rate' \
 }'
 ```
 - Can change the value of couriers, to have limited couriers eg: "couriers": ["citylink"]
-- Eg: ![image](https://github.com/user-attachments/assets/b9e2a92a-d96d-4979-a37b-c671e646daad)
+```
+curl --location 'http://localhost:8080/abc/logistics/rate' \
+--header 'Content-Type: application/json' \
+--header 'Cookie: JSESSIONID=79C78F2A30550016A2267DE9A6691556' \
+--data '{
+  "origin_country": "MY",
+  "origin_state": "Melaka",
+  "origin_postcode": "83300",
+  "destination_country": "MY",
+  "destination_state": "Kuala Lumpur",
+  "destination_postcode": "52000",
+  "length": 12,
+  "width": 12,
+  "height": 34,
+  "selected_type": 2,
+  "parcel_weight": 16,
+  "document_weight": 24,
+"shipping_rates_type": "domestic",
+"shipping_type": "EZ",
+"item_value": 0,
+  "couriers": ["citylink"]
+}'
+```
+- Response: ![image](https://github.com/user-attachments/assets/b9e2a92a-d96d-4979-a37b-c671e646daad)
 
 
 ## Swagger
@@ -52,11 +75,12 @@ curl --location 'http://localhost:8080/abc/logistics/rate' \
 
 
 ## API Security
-- Add another key:value in the header request (Origin: https://notallowing.com)
-- Will get Cors error since Im allowing only https://tm-abc.com
-- ![image](https://github.com/user-attachments/assets/5e2fe79c-cc32-409e-a6d7-3e217862ba2f)
-
-- Check Application.properties for separating key and values to be hide
+CORS
+  - Add another key:value in the header request (Origin: https://notallowing.com)
+  - ![image](https://github.com/user-attachments/assets/5e2fe79c-cc32-409e-a6d7-3e217862ba2f)
+  - Will get Cors error since Im allowing only https://tm-abc.com
+Hiding Token and Key
+  - Check Application.properties for separating key and values to be hide
 
 ## Logging
 - Logging the Request and Response as well as the Header during Feign Call to use for debugging
