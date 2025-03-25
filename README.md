@@ -1,5 +1,5 @@
-# TMInterview (Wiki is not free for Private Repo)
-Middleware for Assessment TM (Logistic Services)
+# Middleware Shipping Rate Calculator
+Middleware for Shipping Rate Calculator (Logistic Services)
 
 ##Tech Version:
 - Java - Java 17
